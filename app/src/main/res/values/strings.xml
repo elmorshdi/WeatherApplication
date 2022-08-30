@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Weather Aplication</string>
+    <string name="location_icon">location Icon</string>
+    <string name="reload">reload</string>
+    <string name="currentWeatherImg">currentWeatherImg</string>
+    <string name="_26">26</string>
+    <string name="_27">27°</string>
+
+    <string name="c">°C</string>
+    <string name="f">°F</string>
+    <string name="feels_like">Feels Like</string>
+    <string name="clear_sky">Clear Sky</string>
+    <string name="_2_2km_h">2.2 Km/h</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">humidity</string>
+    <string name="_58">58 %</string>
+    <string name="_06_00">06:00</string>
+    <string name="choose_location_on_map">Choose location on map</string>
+    <string name="pan_and_zoom_to_adjust">pan and zoom to adjust</string>
+    <string name="nepean_street">nepean street</string>
+    <string name="done">done</string>
+    <string name="google_map">google map</string>
+    <string name="tanta">Tanta</string>
+
+</resources>

@@ -1,0 +1,25 @@
+<resources>
+    <string name = "app_name"> تطبيق الطقس </string>
+    <string name = "location_icon"> رمز الموقع </string>
+    <string name = "reload"> إعادة التحميل </string>
+    <string name = "currentWeatherImg"> currentWeatherImg </string>
+    <string name = "_26"> 26 </string>
+    <string name = "_27"> 27 ° </string>
+
+    <string name = "c"> ° C </string>
+    <string name = "f"> ° F </string>
+    <string name = "feels_like"> يبدو وكأنه </string>
+    <string name = "clear_sky"> مسح السماء </string>
+    <string name = "_2_2km_h"> 2.2 كم / ساعة </string>
+    <string name = "wind"> الرياح </string>
+    <string name = "humidity"> الرطوبة </string>
+    <string name = "_58"> 58٪ </string>
+    <string name = "_06_00"> 06:00 </string>
+    <string name = "choose_location_on_map"> اختر موقعًا على الخريطة </string>
+    <string name = "pan_and_zoom_to_adjust"> التحريك والتكبير لضبط </string>
+    <string name = "nepean_street"> شارع النيبان </string>
+    <string name = "done"> تم </string>
+    <string name = "google_map"> خريطة google </string>
+    <string name = "tanta"> طنطا </string>
+
+</resources>
