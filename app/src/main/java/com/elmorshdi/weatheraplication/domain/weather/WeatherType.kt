@@ -1,14 +1,11 @@
 package com.elmorshdi.weatheraplication.domain.weather
 
-import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import com.elmorshdi.weatheraplication.R
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 sealed class WeatherType(
     @DrawableRes val iconRes: Int
-) : Parcelable {
+) {
     object ClearSkyD: WeatherType(
         iconRes = R.drawable._1d
     )

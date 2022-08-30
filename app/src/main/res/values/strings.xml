@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weather Aplication</string>
+    <string name="app_name">Weather Application</string>
     <string name="location_icon">location Icon</string>
     <string name="reload">reload</string>
     <string name="currentWeatherImg">currentWeatherImg</string>

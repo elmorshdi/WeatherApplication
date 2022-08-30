@@ -78,7 +78,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 12.0f
             )
         )
-        mMap.uiSettings.isZoomControlsEnabled = true
+        mMap.uiSettings.isZoomControlsEnabled = false
         mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
 
         mMap.setOnMapLongClickListener {

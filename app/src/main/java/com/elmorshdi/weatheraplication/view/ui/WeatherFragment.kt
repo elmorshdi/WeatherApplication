@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.elmorshdi.weatheraplication.R
 import com.elmorshdi.weatheraplication.databinding.FragmentWeatherBinding
 import com.elmorshdi.weatheraplication.domain.weather.WeatherByDay
 import com.elmorshdi.weatheraplication.domain.weather.WeatherData
@@ -103,10 +104,10 @@ class WeatherFragment : Fragment(),DaysAdapter.Interaction {
 
     private fun loadWeatherInfo(language:String) {
 
-        viewModel.loadWeatherInfo(Constants.API_KEY, language, "metric")
+        viewModel.loadWeatherInfo( requireContext().resources.getString(R.string.api_key), language, "metric")
     }
     private fun loadWeatherInfo(language:String, location: LatLong) {
-        viewModel.loadWeatherInfo(location, Constants.API_KEY, language, "metric")
+        viewModel.loadWeatherInfo(location,requireContext().resources.getString(R.string.api_key), language, "metric")
     }
     private fun setupViews(it: WeatherInfo) {
             binding.weather=it.currentWeatherData

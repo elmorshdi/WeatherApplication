@@ -1,9 +1,7 @@
 package com.elmorshdi.weatheraplication.domain.weather
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import java.time.LocalDateTime
 
-@Parcelize
 data class WeatherData (
     val time :TimeFormat,
     val temperature :Double,
@@ -13,9 +11,8 @@ data class WeatherData (
 
     val weatherDescription :String,
     val weatherType: WeatherType
-        ) : Parcelable
-@Parcelize
+        )
 data class TimeFormat(
     val H:Int,
     val M:Int
-) : Parcelable
+)

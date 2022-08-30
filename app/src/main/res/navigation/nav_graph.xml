@@ -13,7 +13,7 @@
             app:destination="@id/mapsFragment" />
         <argument android:name="latLong"
             app:nullable="true"
-            app:argType="com.elmorshdi.weatheraplication.view.ui.LatLong"/>
+            app:argType="com.elmorshdi.weatheraplication.view.util.LatLong"/>
 
     </fragment>
     <fragment

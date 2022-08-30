@@ -3,7 +3,6 @@ package com.elmorshdi.weatheraplication.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.elmorshdi.weatheraplication.data.cachedata.MyDataBase
 import com.elmorshdi.weatheraplication.data.remote.WeatherApi
 import com.elmorshdi.weatheraplication.view.util.Constants.BASE_URL
 import com.elmorshdi.weatheraplication.view.util.Constants.DB_NAME
@@ -32,19 +31,6 @@ object AppModule {
             .build()
             .create()
     }
-    @Singleton
-    @Provides
-    fun provideYourDatabase(
-        @ApplicationContext app: Context
-    ) = Room.databaseBuilder(
-        app,
-        MyDataBase::class.java,
-        DB_NAME
-    ).build()
-
-    @Singleton
-    @Provides
-    fun provideYourDao(db: MyDataBase) = db.getDao()
 
     @Provides
     @Singleton
