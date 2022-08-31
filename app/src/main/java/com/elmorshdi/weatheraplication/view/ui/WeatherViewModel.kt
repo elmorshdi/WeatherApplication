@@ -1,6 +1,7 @@
 package com.elmorshdi.weatheraplication.view.ui
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.elmorshdi.weatheraplication.domain.weather.WeatherInfo
 import com.elmorshdi.weatheraplication.view.util.LatLong
 import com.elmorshdi.weatheraplication.view.util.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -62,6 +64,7 @@ class WeatherViewModel @Inject constructor(
                     is Resource.Success<*> -> {
                         _mainUiState.value = Status.SUCCESS
                          _weatherInfo.value=result.data!!
+                        insertToDB(result.data)
 
                     }
                     is Resource.Error<*> -> {
@@ -112,7 +115,64 @@ class WeatherViewModel @Inject constructor(
             }
         }
     }
+    //------------------------------CashedData---------------------------------------------
+    fun getCashedData() {
+        _mainUiState.value = Status.LOADING
+        viewModelScope.launch {
+            try {
+                repository.getCashedWeatherInfo().collect(FlowCollector {
+                    Log.d("tag",it[0].cityName+it[0].weatherDataPerDate.toString())
 
+                    if (it.isEmpty()){
+                        _mainUiState.value = Status.ERROR
+                        _error.value="Connect To Internet"
+                    }
+                    it.forEach { e ->
+                        _weatherInfo.postValue(e)
+                        Log.d("tag",e.cityName+e.weatherDataPerDate.toString())
+                    }
+                    _mainUiState.value = Status.SUCCESS
+
+                })
+            }catch (e:Exception){
+                _mainUiState.value = Status.ERROR
+
+                Log.d("tag",e.message.toString())
+                _error.value="Connect To Internet"
+            }
+
+        }
+
+    }
+
+    private fun deleteCashed() {
+       viewModelScope.launch {
+            try {
+                repository.deleteCashedWeatherInfo()
+
+            }catch (e:Exception){
+                _mainUiState.value = Status.ERROR
+                _error.value="Connect To Internet"
+            }
+
+        }
+
+    }
+
+    private fun insertToDB(weatherInfo: WeatherInfo) {
+
+        viewModelScope.launch {
+            try {
+                repository.addWeatherInfoToDB(weatherInfo)
+
+            }catch (e:Exception){
+                _mainUiState.value = Status.ERROR
+                _error.value="Connect To Internet"
+            }
+
+        }    }
+
+    //End------------------------------CashedData---------------------------------------------
     fun updateCurrentLocation(location: Location){
        _currentLocation.value = location
    }
@@ -120,6 +180,6 @@ class WeatherViewModel @Inject constructor(
         getCurrentLocation()
     }
     init {
-        getCurrentLocation()
+       // getCurrentLocation()
     }
 }

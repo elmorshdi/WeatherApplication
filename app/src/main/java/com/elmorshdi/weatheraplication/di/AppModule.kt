@@ -3,6 +3,9 @@ package com.elmorshdi.weatheraplication.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.elmorshdi.weatheraplication.data.cachedata.MyDataBase
+import com.elmorshdi.weatheraplication.data.cachedata.WeatherDao
+import com.elmorshdi.weatheraplication.data.mappers.DataConverter
 import com.elmorshdi.weatheraplication.data.remote.WeatherApi
 import com.elmorshdi.weatheraplication.view.util.Constants.BASE_URL
 import com.elmorshdi.weatheraplication.view.util.Constants.DB_NAME
@@ -37,4 +40,20 @@ object AppModule {
     fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(app)
     }
+
+    @Singleton
+    @Provides
+    fun provideYourDatabase(
+        @ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+        app,
+        MyDataBase::class.java,
+        DB_NAME
+    ).fallbackToDestructiveMigration()
+        .addTypeConverter(DataConverter())
+        .build()
+
+    @Singleton
+    @Provides
+    fun provideYourDao(db: MyDataBase) :WeatherDao = db.getDao()
 }

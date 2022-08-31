@@ -8,9 +8,7 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 }
-def localProperties = new Properties()
-localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-android {
+ android {
     compileSdk 32
 
     defaultConfig {
@@ -43,6 +41,8 @@ android {
 
     buildTypes {
         debug {
+            def localProperties = new Properties()
+            localProperties.load(new FileInputStream(rootProject.file("local.properties")))
             resValue("string", "google_map_api_key", localProperties['MAPS_API_KEY'])
             resValue("string", "api_key", localProperties['API_KEY'])
 
@@ -62,6 +62,7 @@ android {
       implementation "androidx.room:room-runtime:$room_version"
       annotationProcessor "androidx.room:room-compiler:$room_version"
       // To use Kotlin annotation processing tool (kapt)
+      implementation"androidx.room:room-ktx:$room_version"
       kapt "androidx.room:room-compiler:$room_version"
 
     // navigation

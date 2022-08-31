@@ -19,7 +19,7 @@ import com.elmorshdi.weatheraplication.domain.weather.WeatherData
 import com.elmorshdi.weatheraplication.domain.weather.WeatherInfo
 import com.elmorshdi.weatheraplication.view.adapter.DaysAdapter
 import com.elmorshdi.weatheraplication.view.adapter.HoursAdapter
-import com.elmorshdi.weatheraplication.view.util.*
+ import com.elmorshdi.weatheraplication.view.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -42,53 +42,65 @@ class WeatherFragment : Fragment(),DaysAdapter.Interaction {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val language=if(Locale.getDefault().displayLanguage.toString() == "العربية") "ar" else "en"
-        Log.d("tag",Locale.getDefault().displayLanguage.toString())
        val latitude=arguments?.getDouble("latitude",0.0)
         val longitude=arguments?.getDouble("longitude",0.0)
 
-        if (latitude==null||longitude==null||latitude==0.0||longitude==0.0){
+        Log.d("tag",Locale.getDefault().displayLanguage.toString())
+        if (
+            requireContext().checkForInternet()
+        ){
+            Log.d("tag","online")
 
-            permissionLauncher = registerForActivityResult(
-                ActivityResultContracts.RequestMultiplePermissions()
-            ) {
-                Log.d("tag","2222")
+            if (latitude==null||longitude==null||latitude==0.0||longitude==0.0){
 
-                loadWeatherInfo(language )
-            }
-            permissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                permissionLauncher = registerForActivityResult(
+                    ActivityResultContracts.RequestMultiplePermissions()
+                ) {
+                    Log.d("tag","2222")
+
+                    loadWeatherInfo(language )
+                }
+                permissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                    )
                 )
-            )
-        }
-        else {
-            location.lat= latitude
-            location.long= longitude
-            Log.d("tag","11111")
-            loadWeatherInfo(language,location)
+            }
+            else {
+                location.lat= latitude
+                location.long= longitude
+                loadWeatherInfo(language,location)
+            }
+            binding.locationIcon.setOnClickListener {
+                val action= WeatherFragmentDirections.actionWeatherFragmentToMapsFragment()
+                it.findNavController().navigate(action)
+            }
+            binding.reloadButton.setOnClickListener {
+                loadWeatherInfo(language)
+            }
+        }else{
+            //
+            Log.d("tag","offline")
+
+            viewModel.getCashedData()
         }
 
-        binding.locationIcon.setOnClickListener {
-            val action= WeatherFragmentDirections.actionWeatherFragmentToMapsFragment()
-            it.findNavController().navigate(action)
-        }
-        binding.reloadButton.setOnClickListener {
-            loadWeatherInfo(language)
-        }
+
+
         lifecycleScope.launchWhenCreated {
             viewModel.mainUiState.collect { event ->
                 when (event) {
                     is Status.LOADING ->{
-//                        TODO("progressbar or shamirEffect")
-                        Unit
+                        showProgress(true)
                     }
                     is Status.ERROR -> {
                         viewModel.error.observeOnce(viewLifecycleOwner){
-                            context?.toast(it)
+                            setError(it)
                         }
                     }
                     is Status.SUCCESS -> {
+                        showProgress(false)
                         viewModel.weatherInfo.observeOnce(viewLifecycleOwner) {
                             setupViews(it)
                         }
@@ -102,6 +114,26 @@ class WeatherFragment : Fragment(),DaysAdapter.Interaction {
 
     }
 
+    private fun setError(it: String?) {
+        binding.errorText.visibility=View.VISIBLE
+        binding.progressCircular.visibility = View.GONE
+        binding.currentInfo.visibility = View.GONE
+        binding.errorText.text=it!!
+    }
+
+    private fun showProgress(b: Boolean) {
+        if (b){
+            binding.errorText.visibility=View.GONE
+            binding.progressCircular.visibility = View.VISIBLE
+            binding.currentInfo.visibility = View.GONE
+        }else{
+            binding.errorText.visibility=View.GONE
+            binding.progressCircular.visibility = View.GONE
+            binding.currentInfo.visibility = View.VISIBLE
+        }
+
+    }
+
     private fun loadWeatherInfo(language:String) {
 
         viewModel.loadWeatherInfo( requireContext().resources.getString(R.string.api_key), language, "metric")
@@ -110,12 +142,12 @@ class WeatherFragment : Fragment(),DaysAdapter.Interaction {
         viewModel.loadWeatherInfo(location,requireContext().resources.getString(R.string.api_key), language, "metric")
     }
     private fun setupViews(it: WeatherInfo) {
-            binding.weather=it.currentWeatherData
+        binding.weather=it.currentWeatherData
         binding.cityName.text=it.cityName
         setupHourRV(it.weatherDataPerDate[0].weather)
 
         val daysAdapter =DaysAdapter(this,requireContext())
-            daysAdapter.submitList(it.weatherDataPerDate)
+        daysAdapter.submitList(it.weatherDataPerDate)
         binding.dateRv.adapter = daysAdapter
     }
 

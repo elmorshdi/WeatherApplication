@@ -64,7 +64,7 @@ fun WeatherDto.mapToWeatherByDay(): List<WeatherByDay> {
 private fun convertToCustomFormat(dateStr: String): String {
     val utc = TimeZone.getTimeZone("UTC")
     val sourceFormat = SimpleDateFormat("yyyy-M-D")
-    val destFormat = SimpleDateFormat("EEE,dd,MMM")
+    val destFormat = SimpleDateFormat("EEE, dd MMM")
     sourceFormat.timeZone = utc
     val convertedDate = sourceFormat.parse(dateStr)
     return destFormat.format(convertedDate!!)
