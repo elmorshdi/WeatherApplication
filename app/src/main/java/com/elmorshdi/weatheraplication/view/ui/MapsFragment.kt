@@ -31,10 +31,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //get provided location from viewModel
-        viewModel.currentLocation.observeOnce(viewLifecycleOwner) {
-            location.lat = it.latitude
-            location.long = it.latitude
-        }
+        viewModel.updateCurrentLocation()
+
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -79,7 +77,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             )
         )
         mMap.uiSettings.isZoomControlsEnabled = false
-        mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+        mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
 
         mMap.setOnMapLongClickListener {
             location.lat = it.latitude

@@ -41,51 +41,50 @@
             android:drawableTop="@drawable/ic_baseline_error_24"
             android:drawableTint="@color/design_default_color_error"
             app:layout_constraintBottom_toBottomOf="parent"/>
+        <ImageView
+            android:id="@+id/locationIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="18dp"
+            android:contentDescription="@string/location_icon"
+            android:src="@drawable/ic_edit_location_24"
+            app:layout_constraintTop_toTopOf="@id/cityName"
+            app:layout_constraintBottom_toBottomOf="@+id/cityName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/white"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/cityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/tanta"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintStart_toEndOf="@id/locationIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/reloadButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/reload"
+            android:src="@drawable/ic_baseline_refresh_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
+            android:layout_marginEnd="18dp"
+            tools:ignore="ImageContrastCheck" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/currentInfo"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cityName"
             app:layout_constraintBottom_toTopOf="@id/bottomContainer">
-            <ImageView
-                android:id="@+id/locationIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="18dp"
-                android:contentDescription="@string/location_icon"
-                android:src="@drawable/ic_edit_location_24"
-                app:layout_constraintTop_toTopOf="@id/cityName"
-                app:layout_constraintBottom_toBottomOf="@+id/cityName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:tint="@color/white"
-                tools:ignore="ImageContrastCheck" />
-
-            <TextView
-                android:id="@+id/cityName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="@string/tanta"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintStart_toEndOf="@id/locationIcon"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/reloadButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="@string/reload"
-                android:src="@drawable/ic_baseline_refresh_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white"
-                android:layout_marginEnd="18dp"
-                tools:ignore="ImageContrastCheck" />
 
             <ImageView
                 android:id="@+id/currentWeatherImg"
@@ -97,7 +96,7 @@
                 loadImage="@{weather.weatherType.iconRes}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cityName"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ImageContrastCheck" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

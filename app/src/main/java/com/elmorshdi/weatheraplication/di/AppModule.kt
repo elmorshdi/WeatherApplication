@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.elmorshdi.weatheraplication.data.cachedata.MyDataBase
 import com.elmorshdi.weatheraplication.data.cachedata.WeatherDao
-import com.elmorshdi.weatheraplication.data.mappers.DataConverter
+import com.elmorshdi.weatheraplication.data.cachedata.DataConverter
 import com.elmorshdi.weatheraplication.data.remote.WeatherApi
 import com.elmorshdi.weatheraplication.view.util.Constants.BASE_URL
 import com.elmorshdi.weatheraplication.view.util.Constants.DB_NAME

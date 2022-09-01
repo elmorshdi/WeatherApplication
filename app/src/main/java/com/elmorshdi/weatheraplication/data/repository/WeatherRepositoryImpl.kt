@@ -1,12 +1,11 @@
 package com.elmorshdi.weatheraplication.data.repository
 
-import android.util.Log
 import com.elmorshdi.weatheraplication.data.cachedata.WeatherDao
-import com.elmorshdi.weatheraplication.data.mappers.mapToWeatherInfo
+import com.elmorshdi.weatheraplication.data.cachedata.model.DbModel
 import com.elmorshdi.weatheraplication.data.remote.WeatherApi
+import com.elmorshdi.weatheraplication.data.remote.model.WeatherDto
 import com.elmorshdi.weatheraplication.domain.repository.WeatherRepository
 import com.elmorshdi.weatheraplication.domain.util.Resource
-import com.elmorshdi.weatheraplication.domain.weather.WeatherInfo
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -21,37 +20,36 @@ class WeatherRepositoryImpl @Inject constructor(
         key: String,
         lang: String,
         unit: String
-    ): Resource<WeatherInfo> {
+    ): Resource<WeatherDto> {
 
         val response = api.getWeatherData(lat, long, key, lang, unit)
 
         return try {
-           if (response.isSuccessful) {
+            if (response.isSuccessful) {
 
-                Resource.Success(data = response.body()?.mapToWeatherInfo())
-
-
-           }
-           else {
-               Resource.Error(
-                   response.message().toString() + "::" + (response.errorBody()?.string() ?: "n")
-               )
-           }
+                Resource.Success(data = response.body()!!)
 
 
-        }catch (e:Exception){
+            } else {
+                Resource.Error(
+                    response.message().toString()
+                )
+            }
+
+
+        } catch (e: Exception) {
             Resource.Error(e.message.toString())
         }
     }
 
-    override suspend fun getCashedWeatherInfo(): Flow<List<WeatherInfo>> {
+    override suspend fun getCashedWeatherInfo(): Flow<List<DbModel>> {
 
         return dao.getAll()
     }
 
-    override suspend fun deleteCashedWeatherInfo(): Resource<WeatherInfo> {
+    override suspend fun deleteCashedWeatherInfo(): Resource<DbModel> {
         return try {
-             dao.deleteAll()
+            dao.deleteAll()
             Resource.Success(null)
         } catch (
             e: Exception
@@ -63,14 +61,15 @@ class WeatherRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun addWeatherInfoToDB(weatherInfo: WeatherInfo): Resource<WeatherInfo> {
+    override suspend fun addWeatherInfoToDB(weatherInfo: DbModel): Resource<DbModel> {
         return try {
-             dao.insert(weatherInfo)
+            dao.insert(weatherInfo)
             Resource.Success(null)
         } catch (
             e: Exception
         ) {
             Resource.Error(e.message.toString())
 
-        }    }
+        }
+    }
 }

@@ -9,6 +9,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.ContextCompat
  import com.elmorshdi.weatheraplication.domain.location.LocationTracker
+import com.elmorshdi.weatheraplication.domain.util.Resource
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class DefaultLocationTracker @Inject constructor(
     private val application: Application
 ) : LocationTracker {
     @SuppressLint("MissingPermission")
-    override suspend fun getCurrentLocation(): Location? {
+    override suspend fun getCurrentLocation():Resource<Location>? {
         val hasAccessFineLocationPermission = ContextCompat.checkSelfPermission(
             application,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -32,26 +33,27 @@ class DefaultLocationTracker @Inject constructor(
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if (!hasAccessFineLocationPermission || !hasAccessCoarseLocationPermission || !isGpsEnabled){
-            return null
+            return Resource.Error("Failed to determine your location, open GPS and reload")
         }
         return suspendCancellableCoroutine { cont ->
             locationClient.lastLocation.apply {
                 if(isComplete) {
                     if(isSuccessful) {
-                        cont.resume(result)
+                        cont.resume(Resource.Success(result))
                     } else {
-                        cont.resume(null)
+                        cont.resume(Resource.Error("Failed to determine your location, open GPS and reload  "))
                     }
                     return@suspendCancellableCoroutine
                 }
                 addOnSuccessListener {
-                    cont.resume(it)
+                    cont.resume(Resource.Success(it))
                 }
                 addOnFailureListener {
-                    cont.resume(null)
+                    cont.resume(Resource.Error(it.message.toString()))
                 }
                 addOnCanceledListener {
                     cont.cancel()
+
                 }
             }
         }

@@ -3,12 +3,11 @@ package com.elmorshdi.weatheraplication.data.cachedata
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.elmorshdi.weatheraplication.data.mappers.DataConverter
-import com.elmorshdi.weatheraplication.domain.weather.WeatherInfo
+import com.elmorshdi.weatheraplication.data.cachedata.model.DbModel
 
 @Database(
-    entities = [WeatherInfo::class], // Tell the database the entries will hold data of this type
-    version = 1
+    entities = [DbModel::class], // Tell the database the entries will hold data of this type
+    version = 2
 )
 @TypeConverters(DataConverter::class)
 abstract class  MyDataBase : RoomDatabase() {

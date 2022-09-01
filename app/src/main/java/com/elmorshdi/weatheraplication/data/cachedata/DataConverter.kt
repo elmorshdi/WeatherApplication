@@ -1,7 +1,8 @@
-package com.elmorshdi.weatheraplication.data.mappers
+package com.elmorshdi.weatheraplication.data.cachedata
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.elmorshdi.weatheraplication.data.cachedata.model.ForecastDb
 import com.elmorshdi.weatheraplication.domain.weather.WeatherByDay
 import com.elmorshdi.weatheraplication.domain.weather.WeatherData
 import com.google.gson.Gson
@@ -30,25 +31,38 @@ class DataConverter {
         return gson.fromJson<List<WeatherByDay>>(weatherByDayListString, type)
     }
 
+
+
+
+
+
     @TypeConverter
-    fun fromListWeatherData(weatherDataList:List<WeatherData?>?): String? {
+    fun fromListWeatherData(weatherDataList:List<ForecastDb?>?): String? {
         if (weatherDataList == null) {
             return null
         }
         val gson = Gson()
-        val type: Type = object : TypeToken<List<WeatherData?>?>() {}.type
+        val type: Type = object : TypeToken<List<ForecastDb?>?>() {}.type
         return gson.toJson(weatherDataList, type)
     }
 
     @TypeConverter
-    fun toListWeatherData(weatherDataListString: String?): List<WeatherData>?{
+    fun toListWeatherData(weatherDataListString: String?): List<ForecastDb?>?{
         if (weatherDataListString == null) {
             return null
         }
         val gson = Gson()
-        val type: Type = object : TypeToken<List<WeatherData?>>() {}.type
-        return gson.fromJson<List<WeatherData>>(weatherDataListString, type)
+        val type: Type = object : TypeToken<List<ForecastDb?>?>() {}.type
+        return gson.fromJson<List<ForecastDb?>?>(weatherDataListString, type)
     }
+
+
+
+
+
+
+
+
     @TypeConverter
     fun fromWeatherData(weatherDataList: WeatherData?): String? {
         if (weatherDataList == null) {

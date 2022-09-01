@@ -1,4 +1,4 @@
-package com.elmorshdi.weatheraplication.data.remote
+package com.elmorshdi.weatheraplication.data.remote.model
 
 data class Forecast (
     val clouds: Clouds?,
