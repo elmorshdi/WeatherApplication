@@ -9,8 +9,6 @@ import com.elmorshdi.weatheraplication.R
 import com.elmorshdi.weatheraplication.view.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "MainActivity"
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var doubleBackToExitPressedOnce: Boolean = false

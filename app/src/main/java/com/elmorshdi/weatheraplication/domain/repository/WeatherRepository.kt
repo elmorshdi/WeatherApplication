@@ -3,7 +3,6 @@ package com.elmorshdi.weatheraplication.domain.repository
 import com.elmorshdi.weatheraplication.data.cachedata.model.DbModel
 import com.elmorshdi.weatheraplication.data.remote.model.WeatherDto
 import com.elmorshdi.weatheraplication.domain.util.Resource
-import com.elmorshdi.weatheraplication.domain.weather.WeatherInfo
 import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {

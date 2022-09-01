@@ -1,9 +1,8 @@
 package com.elmorshdi.weatheraplication.view.ui
 
 import android.Manifest
-import android.location.Location
+import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,13 +86,13 @@ class WeatherFragment : Fragment(), DaysAdapter.Interaction {
 
         binding.celsius.setOnClickListener {
             changeUnitTo(WeatherUnit.Metric)
-            binding.celsius.setTextColor(requireContext().resources.getColor(R.color.white))
-            binding.fahrenheit.setTextColor(requireContext().resources.getColor(R.color.gray))
+            binding.celsius.setTextColor(requireContext().resources.getColor(R.color.white, Resources.getSystem().newTheme()))
+            binding.fahrenheit.setTextColor(requireContext().resources.getColor(R.color.gray, Resources.getSystem().newTheme()))
         }
         binding.fahrenheit.setOnClickListener {
             changeUnitTo(WeatherUnit.Standard)
-            binding.fahrenheit.setTextColor(requireContext().resources.getColor(R.color.white))
-            binding.celsius.setTextColor(requireContext().resources.getColor(R.color.gray))
+            binding.fahrenheit.setTextColor(requireContext().resources.getColor(R.color.white, Resources.getSystem().newTheme()))
+            binding.celsius.setTextColor(requireContext().resources.getColor(R.color.gray, Resources.getSystem().newTheme()))
         }
         lifecycleScope.launchWhenCreated {
             viewModel.mainUiState.collect { event ->
@@ -155,7 +154,7 @@ class WeatherFragment : Fragment(), DaysAdapter.Interaction {
         viewModel.loadWeatherInfo(
             requireContext().resources.getString(R.string.api_key),
             language,
-            unit.type
+            weatherUnit.type
         )
     }
 
@@ -165,7 +164,7 @@ class WeatherFragment : Fragment(), DaysAdapter.Interaction {
             location,
             requireContext().resources.getString(R.string.api_key),
             language,
-            unit.type
+            weatherUnit.type
         )
     }
 

@@ -3,7 +3,6 @@ package com.elmorshdi.weatheraplication.view.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -17,6 +16,7 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
         }
     })
 }
+
 fun Context.toast(message: CharSequence) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 fun Context.checkForInternet(): Boolean {
 

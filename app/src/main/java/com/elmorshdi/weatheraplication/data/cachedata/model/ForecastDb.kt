@@ -1,7 +1,5 @@
 package com.elmorshdi.weatheraplication.data.cachedata.model
 
-import com.elmorshdi.weatheraplication.data.remote.model.*
-
 data class ForecastDb (
     val dt_txt: String?,
       val feels_like: Double?,

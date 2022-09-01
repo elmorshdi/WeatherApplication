@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import com.elmorshdi.weatheraplication.R
 import com.elmorshdi.weatheraplication.databinding.FragmentMapsBinding
 import com.elmorshdi.weatheraplication.view.util.LatLong
-import com.elmorshdi.weatheraplication.view.util.observeOnce
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

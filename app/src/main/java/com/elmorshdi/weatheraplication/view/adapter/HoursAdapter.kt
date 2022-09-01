@@ -8,7 +8,7 @@ import com.elmorshdi.weatheraplication.databinding.HourItemBinding
 import com.elmorshdi.weatheraplication.domain.weather.WeatherData
 
 
-class HoursAdapter( ) : androidx.recyclerview.widget.ListAdapter<WeatherData, HoursAdapter.HourViewHolder>(
+class HoursAdapter : androidx.recyclerview.widget.ListAdapter<WeatherData, HoursAdapter.HourViewHolder>(
     DaysDiffCallBack()
 ) {
 

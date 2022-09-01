@@ -1,7 +1,5 @@
 package com.elmorshdi.weatheraplication.domain.weather
 
-import java.time.LocalDateTime
-
 data class WeatherData (
     val time :TimeFormat,
     val temperature :Double,
