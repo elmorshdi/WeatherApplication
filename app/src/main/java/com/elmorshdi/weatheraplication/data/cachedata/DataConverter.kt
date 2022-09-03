@@ -11,11 +11,6 @@ import java.lang.reflect.Type
 
 @ProvidedTypeConverter
 class DataConverter {
-
-
-
-
-
     @TypeConverter
     fun fromListWeatherData(weatherDataList:List<ForecastDb?>?): String? {
         if (weatherDataList == null) {
@@ -35,13 +30,4 @@ class DataConverter {
         val type: Type = object : TypeToken<List<ForecastDb?>?>() {}.type
         return gson.fromJson<List<ForecastDb?>?>(weatherDataListString, type)
     }
-
-
-
-
-
-
-
-
-
 }

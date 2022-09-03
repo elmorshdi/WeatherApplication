@@ -1,4 +1,4 @@
-package com.elmorshdi.weatheraplication.view.ui
+package com.elmorshdi.weatheraplication.view.ui.weatherFragment
 
 import android.Manifest
 import android.content.res.Resources
@@ -17,8 +17,9 @@ import com.elmorshdi.weatheraplication.databinding.FragmentWeatherBinding
 import com.elmorshdi.weatheraplication.domain.weather.WeatherByDay
 import com.elmorshdi.weatheraplication.domain.weather.WeatherData
 import com.elmorshdi.weatheraplication.domain.weather.WeatherInfo
-import com.elmorshdi.weatheraplication.view.adapter.DaysAdapter
-import com.elmorshdi.weatheraplication.view.adapter.HoursAdapter
+import com.elmorshdi.weatheraplication.view.ui.weatherFragment.adapter.DaysAdapter
+import com.elmorshdi.weatheraplication.view.ui.weatherFragment.adapter.HoursAdapter
+import com.elmorshdi.weatheraplication.view.ui.sharedviewmodel.WeatherViewModel
 import com.elmorshdi.weatheraplication.view.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -29,7 +30,7 @@ class WeatherFragment : Fragment(), DaysAdapter.Interaction {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var binding: FragmentWeatherBinding
     private var location: LatLong = LatLong()
-    private var unit :WeatherUnit=WeatherUnit.Metric
+    private var unit : WeatherUnit = WeatherUnit.Metric
     private lateinit var language :String
 
     override fun onCreateView(
@@ -188,8 +189,8 @@ class WeatherFragment : Fragment(), DaysAdapter.Interaction {
         setupHourRV(weatherByDay.weather)
     }
 sealed class WeatherUnit(val type:String){
-    object Metric:WeatherUnit(type="metric")
-    object Standard:WeatherUnit(type="standard")
+    object Metric: WeatherUnit(type="metric")
+    object Standard: WeatherUnit(type="standard")
 }
 }
 

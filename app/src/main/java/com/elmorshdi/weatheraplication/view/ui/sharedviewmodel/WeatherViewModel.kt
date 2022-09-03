@@ -1,4 +1,4 @@
-package com.elmorshdi.weatheraplication.view.ui
+package com.elmorshdi.weatheraplication.view.ui.sharedviewmodel
 
 import android.location.Location
 import android.util.Log

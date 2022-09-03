@@ -1,4 +1,4 @@
-package com.elmorshdi.weatheraplication.view.adapter
+package com.elmorshdi.weatheraplication.view.ui.weatherFragment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

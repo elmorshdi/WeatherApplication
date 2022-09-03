@@ -5,7 +5,7 @@
     app:startDestination="@id/weatherFragment">
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.elmorshdi.weatheraplication.view.ui.WeatherFragment"
+        android:name="com.elmorshdi.weatheraplication.view.ui.weatherFragment.WeatherFragment"
         android:label="WeatherFragment" >
         <action
             android:id="@+id/action_weatherFragment_to_mapsFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.elmorshdi.weatheraplication.view.ui.MapsFragment"
+        android:name="com.elmorshdi.weatheraplication.view.ui.maps.MapsFragment"
         android:label="MapsFragment" >
         <action
             android:id="@+id/action_mapsFragment_to_weatherFragment"

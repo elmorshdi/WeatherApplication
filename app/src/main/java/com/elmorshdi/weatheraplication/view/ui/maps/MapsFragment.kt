@@ -1,4 +1,4 @@
-package com.elmorshdi.weatheraplication.view.ui
+package com.elmorshdi.weatheraplication.view.ui.maps
 
 import android.location.Address
 import android.location.Geocoder
@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.elmorshdi.weatheraplication.R
 import com.elmorshdi.weatheraplication.databinding.FragmentMapsBinding
+import com.elmorshdi.weatheraplication.view.ui.sharedviewmodel.WeatherViewModel
 import com.elmorshdi.weatheraplication.view.util.LatLong
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
