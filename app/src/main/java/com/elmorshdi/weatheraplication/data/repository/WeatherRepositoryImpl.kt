@@ -1,5 +1,6 @@
 package com.elmorshdi.weatheraplication.data.repository
 
+import android.util.Log
 import com.elmorshdi.weatheraplication.data.cachedata.WeatherDao
 import com.elmorshdi.weatheraplication.data.cachedata.model.DbModel
 import com.elmorshdi.weatheraplication.data.remote.WeatherApi
@@ -23,7 +24,7 @@ class WeatherRepositoryImpl @Inject constructor(
     ): Resource<WeatherDto> {
 
         val response = api.getWeatherData(lat, long, key, lang, unit)
-
+            Log.d("tag",response.toString())
         return try {
             if (response.isSuccessful) {
 

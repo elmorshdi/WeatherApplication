@@ -1,6 +1,7 @@
 package com.elmorshdi.weatheraplication.data.remote.model
 
 
+
 data class WeatherDto(
     val city: City?,
     val cnt: Int?,
